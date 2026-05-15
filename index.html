@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FIFA World Cup 2026 Sweepstake</title>
+  <meta name="description" content="Organise and run a FIFA World Cup 2026 sweepstake with signup, payment tracking, countdown, and manual team assignment." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="page-bg" aria-hidden="true"></div>
+  <header class="hero" id="top">
+    <p class="kicker">Data Tech</p>
+    <h1>World Cup 2026 Sweepstake</h1>
+    <p class="subhead">
+      One page to explain the rules, collect entries, track payments, manage manual team assignment,
+      and publish everyone&apos;s teams.
+    </p>
+    <nav class="top-nav" aria-label="Page sections">
+      <a href="#countdown">Countdown</a>
+      <a href="#sweepstake">Sweepstake Explainer</a>
+      <a href="#participants">Participants</a>
+    </nav>
+  </header>
+
+  <main>
+    <section id="countdown" class="panel">
+      <h2>Assignment Meeting Countdown</h2>
+      <div class="countdown-wrap">
+        <p class="countdown-context">Teams will be assigned in the Thursday <strong>3:00 PM</strong> meeting using a random selector.</p>
+        <div class="timer" aria-live="polite">
+          <div><span id="days">0</span><small>Days</small></div>
+          <div><span id="hours">0</span><small>Hours</small></div>
+          <div><span id="minutes">0</span><small>Minutes</small></div>
+          <div><span id="seconds">0</span><small>Seconds</small></div>
+        </div>
+        <p id="countdown-target" class="hint"></p>
+      </div>
+    </section>
+
+    <section id="sweepstake" class="panel">
+      <h2>How it works</h2>
+      <div class="grid two">
+        <article class="card">
+          <h3>How It Works</h3>
+          <ul>
+            <li>Buy-in price: <strong>A$5</strong> per participant.</li>
+            <li>Teams are assigned during a meeting on Thursday at <strong>3:00 PM</strong> using a random selector.</li>
+            <li>Minimum viable pool is <strong>16 participants</strong>, each receiving <strong>3 teams</strong>.</li>
+            <li>After 16, additional participants are pending until the list reaches <strong>24 participants</strong> (then <strong>2 teams each</strong>).</li>
+            <li>After 24, additional participants are pending until the list reaches <strong>48 participants</strong> (then <strong>1 team each</strong>).</li>
+            <li>Use each confirmed participant's Assign Teams button to record meeting outcomes.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Prize Split</h3>
+          <ul class="prize-list">
+            <li><span>Champion (1st)</span><strong>50%</strong></li>
+            <li><span>Second Place (2nd)</span><strong>20%</strong></li>
+            <li><span>Wooden Spoon (last)</span><strong>20%</strong></li>
+            <li><span>Third Place (3rd)</span><strong>10%</strong></li>
+          </ul>
+          <div class="pot-box">
+            <p>Live pot estimate</p>
+            <p><strong id="pot-total">A$0.00</strong> from <span id="paid-count">0</span> paid entries</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="participants" class="panel">
+      <h2>REGISTRATION</h2>
+      <article class="card auth-card">
+        <div>
+          <h3>Data Sync</h3>
+          <p id="sync-mode" class="hint">Checking data source...</p>
+          <p id="auth-status" class="hint">Enter the internal passkey once to unlock name entry in this session.</p>
+        </div>
+      </article>
+
+      <div class="grid two">
+        <article class="card">
+          <h3>Sign Up</h3>
+          <form id="participant-form" class="signup-form">
+            <label>
+              Team Passkey
+              <input id="entry-passkey" type="password" maxlength="100" required autocomplete="off" />
+            </label>
+            <label>
+              Name
+              <input id="participant-name" type="text" maxlength="50" pattern="[A-Za-z0-9][A-Za-z0-9 .,'()\-]{0,49}" title="Use letters, numbers, spaces, and . , ' ( ) - only." required />
+            </label>
+            <p class="hint">Names are limited to letters, numbers, spaces, and basic punctuation.</p>
+            <button type="submit" class="btn">Add Participant</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <h3>Payment Details</h3>
+          <p>Buy-in is <strong>A$5 per person</strong>.</p>
+          <ul>
+            <li>Payment method: PayID.</li>
+            <li>PayID phone number: <strong>0426558666</strong>.</li>
+            <li>Reference: Your name + "WC2026".</li>
+            <li>After paying, tick "Paid" in the table below.</li>
+          </ul>
+        </article>
+      </div>
+
+      <article class="card" id="participant-register">
+        <h3>Participant Register</h3>
+        <p id="participant-status-summary" class="hint"></p>
+        <h4>Confirmed (In)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Paid</th>
+                <th>Assigned Teams</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="participant-rows-in"></tbody>
+          </table>
+        </div>
+
+        <h4>Pending (Depends On More Participants)</h4>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Paid</th>
+                <th>Assigned Teams</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="participant-rows-pending"></tbody>
+          </table>
+        </div>
+      </article>
+    </section>
+
+    <section id="teams-explorer" class="panel">
+      <h2>Ranked Teams Explorer</h2>
+      <article class="card">
+        <p class="hint">
+          Click any team to view its group, FIFA ranking, confederation, current title odds, and the other teams in its group.
+          The list is ordered by the betting-market odds you provided, while still showing FIFA ranking.
+        </p>
+        <div class="ranking-explorer">
+          <aside class="ranking-sidebar">
+            <label for="team-search">Filter teams</label>
+            <input id="team-search" type="text" placeholder="Type team or group..." />
+            <div id="ranked-team-list" class="ranked-team-list" role="listbox" aria-label="Ranked teams"></div>
+          </aside>
+          <section id="team-detail" class="team-detail" aria-live="polite"></section>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Built for GitHub Pages with Firebase-backed shared participant data.</p>
+    <a href="#top">Back to top</a>
+  </footer>
+
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+  <script src="firebase-config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
